@@ -296,7 +296,7 @@
                     giveaway.
                   </li>
                   <li style="margin-bottom: 0.6em">
-                    book will be sent in <strong>Italian</strong> <em>and</em>
+                    Book will be sent in <strong>Italian</strong> <em>and</em>
                     <strong>English</strong>
                   </li>
                   <li style="margin-bottom: 0.6em">PDF format</li>
@@ -322,16 +322,23 @@
                 <div class="input-group mb-3">
                   <input
                     type="email"
-                    class="form-control"
+                    class="form-control input-enter-email"
                     placeholder="Enter your email"
                     aria-label="Email"
                     required
                   />
-                  <button class="btn btn-primary" type="submit">Submit</button>
+                  <button
+                    type="button"
+                    class="btn btn-primary submit-book"
+                    data-bs-container="body"
+                    data-bs-placement="top"
+                  >
+                    submit
+                  </button>
                 </div>
               </form>
             </div>
-            <!-- Right: Book Cover fills full height -->
+            <!-- Right: Book Cover  -->
 
             <div class="col-md-6 d-flex p-0">
               <a href="" target="_blank">
@@ -398,5 +405,6 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/scripts.js"></script>
+    <script src="js/SubmitEmailBtn.js"></script>
   </body>
 </html>
