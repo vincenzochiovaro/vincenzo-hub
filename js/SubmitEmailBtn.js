@@ -14,38 +14,66 @@ submitBookBtn.addEventListener("click", function (event) {
   const inputEmail = document.querySelector(".input-enter-email").value;
 
   if (ValidateEmail(inputEmail)) {
-    submitBookBtn.disabled = true;
-    submitBookBtn.textContent = " Good Luck ✅";
-
-    submitBookBtn.style.backgroundColor = "transparent";
-    submitBookBtn.style.color = "green";
-    submitBookBtn.style.border = "none";
-    submitBookBtn.style.transition = "all 0.9s ease";
-    submitBookBtn.style.transform = "scale(1.19)";
-    popover.hide();
-    document.querySelector(".input-enter-email").disabled = true;
-    document.querySelector(".input-enter-email").value = "";
-    // send email to my mailbox EMAILJS
-    console.log("if");
+    fetch("https://formspree.io/f/xpwlregy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ email: inputEmail }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          StyleButtonOnFailure("Limit reached today, try again tomorrow");
+        }
+        return response.json();
+      })
+      .then((result) => {
+        if (result.ok) {
+          StyleButtonSuccess();
+        }
+      })
+      .catch((error) => {
+        event.preventDefault();
+        StyleButtonOnFailure("Limit reached today, try again tomorrow");
+      });
   } else {
-    console.log("else");
-    popover._config.content = "Insert a Valid Email. Try Again";
-    popover.setContent && popover.setContent();
-    popover.show();
-
-    submitBookBtn.style.color = "red";
-
-    document.querySelector(".input-enter-email").value = "";
-    document.querySelector(".input-enter-email").disabled = true;
-
-    setTimeout(() => {
-      popover.hide();
-      submitBookBtn.style.color = "white";
-      document.querySelector(".input-enter-email").value = "";
-      document.querySelector(".input-enter-email").disabled = false;
-    }, 1500);
+    const msg = "Insert a Valid Email. Try Again";
+    StyleButtonOnFailure(msg);
   }
 });
+
+function StyleButtonSuccess() {
+  submitBookBtn.disabled = true;
+  submitBookBtn.textContent = " Good Luck ✅";
+
+  submitBookBtn.style.backgroundColor = "transparent";
+  submitBookBtn.style.color = "green";
+  submitBookBtn.style.border = "none";
+  submitBookBtn.style.transition = "all 0.9s ease";
+  submitBookBtn.style.transform = "scale(1.19)";
+  popover.hide();
+  document.querySelector(".input-enter-email").disabled = true;
+  document.querySelector(".input-enter-email").value = "";
+}
+
+function StyleButtonOnFailure(message) {
+  popover._config.content = message;
+  popover.setContent && popover.setContent();
+  popover.show();
+
+  submitBookBtn.style.color = "red";
+
+  document.querySelector(".input-enter-email").value = "";
+  document.querySelector(".input-enter-email").disabled = true;
+
+  setTimeout(() => {
+    popover.hide();
+    submitBookBtn.style.color = "white";
+    document.querySelector(".input-enter-email").value = "";
+    document.querySelector(".input-enter-email").disabled = false;
+  }, 1500);
+}
 
 function ValidateEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
