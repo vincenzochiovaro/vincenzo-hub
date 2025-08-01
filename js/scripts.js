@@ -3,7 +3,7 @@ const nextDraw = document.querySelector(".next-draw");
 const GetNextDrawDate = function () {
   const currentDate = new Date();
   if (currentDate.getDate() === 1) {
-    nextDraw.textContent = "Today!! Good Luck🤞";
+    nextDraw.textContent = " Today!! Good Luck🤞";
   } else {
     const currentDate = new Date();
     const nextMonthDate = new Date(
