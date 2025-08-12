@@ -1,4 +1,5 @@
 const nextDraw = document.querySelector(".next-draw");
+const randomWelcome = document.querySelector(".random-welcome");
 
 const GetNextDrawDate = function () {
   const currentDate = new Date();
@@ -13,8 +14,21 @@ const GetNextDrawDate = function () {
     const nextMonthName = nextMonthDate.toLocaleString("default", {
       month: "long",
     });
-    nextDraw.textContent = `: 1st ${nextMonthName} ${currentDate.getFullYear()}`;
+    nextDraw.textContent = `: 01 ${nextMonthName} ${currentDate.getFullYear()}`;
   }
 };
 
+const GenRandomWelcome = function () {
+  const randomIndex = Math.floor(Math.random() * welcomeList.length);
+  randomWelcome.textContent = welcomeList[randomIndex];
+};
+
+const welcomeList = [
+  "Ciao! You found my corner of the web.",
+  "Hi, Welcome to my hub.",
+  "Hey there! Glad you dropped by.",
+  "Welcome to my digital hub.",
+];
+
+GenRandomWelcome();
 GetNextDrawDate();
